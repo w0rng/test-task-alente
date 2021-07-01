@@ -26,14 +26,17 @@ class Event(models.Model):
 class Request(models.Model):
     date = models.DateTimeField('Дата создания', default=datetime.now, editable=False)
     event = models.ForeignKey(Event, on_delete=models.CASCADE, verbose_name='Мероприятие')
-    participant = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='Участник', related_name='participants')
+    participant = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='Участник')
 
     class Meta:
         verbose_name = 'Отклик'
         verbose_name_plural = 'Отклики'
 
 
-class Feedback(Request):
+class Feedback(models.Model):
+    date = models.DateTimeField('Дата создания', default=datetime.now, editable=False)
+    event = models.ForeignKey(Event, on_delete=models.CASCADE, verbose_name='Мероприятие')
+    participant = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='Участник')
     file = models.FileField('Дополнительный материал', blank=True, upload_to='feedback')
     rating = models.IntegerField(
         verbose_name='Рейтинг',

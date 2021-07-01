@@ -29,8 +29,8 @@ class Request(models.Model):
     participant = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='Участник')
 
     class Meta:
-        verbose_name = 'Отклик'
-        verbose_name_plural = 'Отклики'
+        verbose_name = 'Заявка'
+        verbose_name_plural = 'Заявки'
 
 
 class Feedback(models.Model):

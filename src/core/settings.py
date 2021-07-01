@@ -30,6 +30,8 @@ INSTALLED_APPS = [
 
     'debug_toolbar',
     'anymail',
+    'rest_framework',
+    'rest_framework.authtoken',
 
     'events',
     'user'
@@ -90,6 +92,11 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.TokenAuthentication',
+    ],
+}
 
 LANGUAGE_CODE = 'ru-ru'
 

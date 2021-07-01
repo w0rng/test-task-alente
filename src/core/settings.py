@@ -32,6 +32,7 @@ INSTALLED_APPS = [
     'anymail',
     'rest_framework',
     'rest_framework.authtoken',
+    'drf_yasg',
 
     'events',
     'user'

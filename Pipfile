@@ -8,6 +8,7 @@ django = "*"
 django-environ = "*"
 django-anymail = "*"
 djangorestframework = "*"
+drf-yasg = "*"
 
 [dev-packages]
 django-debug-toolbar = "*"

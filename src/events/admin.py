@@ -20,3 +20,8 @@ class EventAdmin(admin.ModelAdmin):
 @admin.register(models.Request)
 class RequestAdmin(admin.ModelAdmin):
     list_display = ('participant', 'event', 'date')
+
+
+@admin.register(models.Feedback)
+class FeedbackAdmin(admin.ModelAdmin):
+    list_display = ('participant', 'event', 'date', 'rating')

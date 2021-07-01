@@ -1,6 +1,8 @@
-from django.db import models
 from datetime import datetime
+
 from django.contrib.auth.models import User
+from django.core.validators import MaxValueValidator, MinValueValidator
+from django.db import models
 
 
 class Event(models.Model):
@@ -27,3 +29,19 @@ class Request(models.Model):
     class Meta:
         verbose_name = 'Отклик'
         verbose_name_plural = 'Отклики'
+
+
+class Feedback(Request):
+    file = models.FileField('Дополнительный материал', blank=True, upload_to='feedback')
+    rating = models.IntegerField(
+        verbose_name='Рейтинг',
+        validators=[
+            MinValueValidator(1),
+            MaxValueValidator(5),
+        ],
+        null=True,
+    )
+
+    class Meta:
+        verbose_name = 'Отзыв'
+        verbose_name_plural = 'Отзывы'

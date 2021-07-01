@@ -8,3 +8,6 @@ class User(AbstractUser):
         (1, 'Автор')
     )
     type = models.IntegerField('Тип', choices=CHOICES, default=0)
+
+    def __str__(self):
+        return self.get_full_name()

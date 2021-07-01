@@ -30,7 +30,8 @@ INSTALLED_APPS = [
 
     'debug_toolbar',
 
-    'events'
+    'events',
+    'user'
 ]
 
 MIDDLEWARE = [
@@ -106,3 +107,5 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = path_join(BASE_DIR, 'resources/media')
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+AUTH_USER_MODEL = 'user.User'

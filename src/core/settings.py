@@ -29,6 +29,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'debug_toolbar',
+    'anymail',
 
     'events',
     'user'
@@ -109,3 +110,11 @@ MEDIA_ROOT = path_join(BASE_DIR, 'resources/media')
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 AUTH_USER_MODEL = 'user.User'
+
+
+EMAIL_BACKEND = 'anymail.backends.mailgun.EmailBackend'
+ANYMAIL = {
+    'MAILGUN_API_KEY': env.str('MAILGUN_API_KEY'),
+    'MAILGUN_SENDER_DOMAIN': env.str('MAILGUN_SENDER_DOMAIN')
+}
+DEFAULT_FROM_EMAIL = 'info@' + env.str('MAILGUN_SENDER_DOMAIN')

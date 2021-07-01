@@ -19,7 +19,7 @@ class EventAdmin(admin.ModelAdmin):
 
     def get_queryset(self, request):
         qs = super().get_queryset(request)
-        return qs.annotate(num_participants=Count('request'), avg_rate=Avg('feedback__rating'))
+        return qs.annotate(num_participants=Count('request', distinct=True), avg_rate=Avg('feedback__rating'))
 
 
 @admin.register(models.Request)

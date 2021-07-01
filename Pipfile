@@ -9,6 +9,7 @@ django-environ = "*"
 django-anymail = "*"
 djangorestframework = "*"
 drf-yasg = "*"
+django-filter = "*"
 
 [dev-packages]
 django-debug-toolbar = "*"

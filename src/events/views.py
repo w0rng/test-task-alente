@@ -1,10 +1,10 @@
 from django.utils import timezone
-
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.filters import SearchFilter
+from rest_framework.permissions import IsAuthenticated
 from rest_framework.viewsets import ModelViewSet
 
-from . import models, serializers, permissions
+from . import models, serializers, permissions, services
 
 
 class EventViewSet(ModelViewSet):
@@ -19,3 +19,11 @@ class EventViewSet(ModelViewSet):
     def perform_create(self, serializer):
         serializer.validated_data['user'] = self.request.user
         serializer.save()
+
+
+class MyEventViewSet(EventViewSet):
+    queryset = None
+    permission_classes = [IsAuthenticated, permissions.IsOwnerOrReadOnly]
+
+    def get_queryset(self):
+        return services.gey_my_events(self.request.user)

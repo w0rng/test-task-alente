@@ -10,9 +10,12 @@ django-anymail = "*"
 djangorestframework = "*"
 drf-yasg = "*"
 django-filter = "*"
+celery = "*"
+redis = "*"
 
 [dev-packages]
 django-debug-toolbar = "*"
+flower = "*"
 
 [requires]
 python_version = "3.9"

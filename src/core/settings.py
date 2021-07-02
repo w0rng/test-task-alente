@@ -129,3 +129,6 @@ ANYMAIL = {
     'MAILGUN_SENDER_DOMAIN': env.str('MAILGUN_SENDER_DOMAIN')
 }
 DEFAULT_FROM_EMAIL = 'info@' + env.str('MAILGUN_SENDER_DOMAIN')
+
+CELERY_BROKER_URL = env.str("CELERY_BROKER", "redis://localhost:6379/0")
+CELERY_RESULT_BACKEND = env.str("CELERY_BROKER", "redis://localhost:6379/0")

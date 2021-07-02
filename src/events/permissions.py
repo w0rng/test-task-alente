@@ -19,3 +19,8 @@ class IsAuthorOrReadOnly(BasePermission):
             request.user.is_authenticated and
             request.user.type == 1
         )
+
+
+class IsParticipant(BasePermission):
+    def has_permission(self, request, view):
+        return request.user.type == 0

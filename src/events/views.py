@@ -4,6 +4,7 @@ from django.utils import timezone
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import mixins
 from rest_framework.filters import SearchFilter, OrderingFilter
+from rest_framework.generics import RetrieveAPIView
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.viewsets import ModelViewSet, GenericViewSet
 
@@ -37,6 +38,11 @@ class MyEventViewSet(EventViewSet):
         return services.gey_my_events(self.request.user)
 
 
+class EventDetailView(RetrieveAPIView):
+    queryset = models.Event.objects.all().select_related()
+    serializer_class = serializers.EventDetailSerializer
+
+
 class RequestViewSet(mixins.CreateModelMixin,
                      mixins.UpdateModelMixin,
                      mixins.DestroyModelMixin,
@@ -52,3 +58,10 @@ class RequestViewSet(mixins.CreateModelMixin,
     def perform_create(self, serializer):
         serializer.validated_data['user'] = self.request.user
         serializer.save()
+
+
+class FeedbackViewSet(RequestViewSet):
+    serializer_class = serializers.FeedbackSerializer
+
+    def pre_save(self, obj):
+        obj.file = self.request.FILES.get('file')

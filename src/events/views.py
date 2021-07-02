@@ -1,4 +1,4 @@
-from datetime import datetime
+from django.utils import timezone
 
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.filters import SearchFilter
@@ -8,7 +8,7 @@ from . import models, serializers, permissions
 
 
 class EventViewSet(ModelViewSet):
-    queryset = models.Event.objects.filter(start_date__gt=datetime.now())
+    queryset = models.Event.objects.filter(start_date__gt=timezone.now())
     serializer_class = serializers.EventSerializer
     permission_classes = [permissions.IsAuthorOrReadOnly, permissions.IsOwnerOrReadOnly]
     filter_backends = [DjangoFilterBackend, SearchFilter]

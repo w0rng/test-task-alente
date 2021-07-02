@@ -1,4 +1,4 @@
-from datetime import datetime
+from django.utils import timezone
 
 from anymail.exceptions import AnymailRequestsAPIError
 from django.conf import settings
@@ -11,7 +11,7 @@ User = settings.AUTH_USER_MODEL
 class Event(models.Model):
     name = models.CharField('Название', max_length=127)
     description = models.TextField('Описание')
-    create_date = models.DateTimeField('Дата создания', default=datetime.now, editable=False)
+    create_date = models.DateTimeField('Дата создания', default=timezone.now, editable=False)
     start_date = models.DateTimeField('Дата проведения')
     author = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='Организатор')
 
@@ -25,7 +25,7 @@ class Event(models.Model):
 
 
 class ForeignUserEvent(models.Model):
-    date = models.DateTimeField('Дата создания', default=datetime.now, editable=False)
+    date = models.DateTimeField('Дата создания', default=timezone.now, editable=False)
     event = models.ForeignKey(Event, on_delete=models.CASCADE, verbose_name='Мероприятие')
     participant = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='Участник')
 

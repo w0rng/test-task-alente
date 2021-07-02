@@ -33,7 +33,6 @@ class ForeignUserEvent(models.Model):
     TEXT_MESSAGE = 'С вашим мероприятием {0} что-то случилось'
 
     class Meta:
-        unique_together = ('event', 'user')
         abstract = True
 
     def save(self, *args, **kwargs):
@@ -50,6 +49,7 @@ class Request(ForeignUserEvent):
     TEXT_MESSAGE = 'На ваше мероприятие {0} зарегистрировался новый пользователь'
 
     class Meta:
+        unique_together = ('event', 'user')
         verbose_name = 'Заявка'
         verbose_name_plural = 'Заявки'
 
@@ -69,5 +69,6 @@ class Feedback(ForeignUserEvent):
     )
 
     class Meta:
+        unique_together = ('event', 'user')
         verbose_name = 'Отзыв'
         verbose_name_plural = 'Отзывы'

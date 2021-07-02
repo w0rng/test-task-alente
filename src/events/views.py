@@ -36,10 +36,11 @@ class RequestViewSet(mixins.CreateModelMixin,
                      GenericViewSet):
 
     serializer_class = serializers.RequestSerializer
-    permission_classes = [IsAuthenticated, permissions.IsParticipant]
-
-    def get_queryset(self):
-        return models.Request.objects.filter(user=self.request.user).distinct()
+    permission_classes = [
+        IsAuthenticated,
+        permissions.IsParticipantOrReadOnly,
+        permissions.IsOwnerOrReadOnly,
+    ]
 
     def perform_create(self, serializer):
         serializer.validated_data['user'] = self.request.user

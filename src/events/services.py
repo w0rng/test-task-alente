@@ -1,4 +1,5 @@
-from django.db.models import QuerySet
+from django.db.models import QuerySet, Count, Avg
+from django.db.models.functions import Coalesce
 
 from user.models import User
 from .models import Event
@@ -14,9 +15,16 @@ def gey_my_events(user: User) -> QuerySet[Event]:
     :param user: текущий авторизованный пользователь
     :return: QuerySet всех мероприятий
     """
+    query = None
     if user.type == 0:
-        return Event.objects.select_related().filter(request__user=user).distinct()
+        query = Event.objects.select_related().filter(request__user=user).distinct()
     elif user.type == 1:
-        return Event.objects.filter(user=user)
+        query = Event.objects.filter(user=user)
+
+    if query:
+        return query.annotate(
+            num_participants=Count('request', distinct=True),
+            avg_rate=Coalesce(Avg('feedback__rating'), 0.0)
+        )
 
     return Event.objects.none()

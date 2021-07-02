@@ -33,6 +33,7 @@ class ForeignUserEvent(models.Model):
     TEXT_MESSAGE = 'С вашим мероприятием {0} что-то случилось'
 
     class Meta:
+        unique_together = ('event', 'user')
         abstract = True
 
     def save(self, *args, **kwargs):

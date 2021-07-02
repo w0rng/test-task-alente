@@ -7,7 +7,7 @@ class IsOwnerOrReadOnly(BasePermission):
             request.method in SAFE_METHODS or
             request.user and
             request.user.is_authenticated and
-            obj.author == request.user
+            obj.user == request.user
         )
 
 

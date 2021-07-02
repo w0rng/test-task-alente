@@ -4,7 +4,7 @@ from . import models
 
 
 class EventSerializer(serializers.ModelSerializer):
-    author = serializers.CharField(read_only=True)
+    user = serializers.CharField(read_only=True)
 
     class Meta:
         model = models.Event

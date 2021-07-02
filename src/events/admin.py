@@ -6,7 +6,7 @@ from . import models, forms
 
 @admin.register(models.Event)
 class EventAdmin(admin.ModelAdmin):
-    list_display = ('name', 'create_date', 'start_date', 'author', 'num_participants', 'avg_rate')
+    list_display = ('name', 'create_date', 'start_date', 'user', 'num_participants', 'avg_rate')
     form = forms.EventForm
 
     def num_participants(self, obj):
@@ -24,11 +24,11 @@ class EventAdmin(admin.ModelAdmin):
 
 @admin.register(models.Request)
 class RequestAdmin(admin.ModelAdmin):
-    list_display = ('participant', 'event', 'date')
+    list_display = ('user', 'event', 'date')
     form = forms.RequestForm
 
 
 @admin.register(models.Feedback)
 class FeedbackAdmin(admin.ModelAdmin):
-    list_display = ('participant', 'event', 'date', 'rating')
+    list_display = ('user', 'event', 'date', 'rating')
     form = forms.FeedbackForm

@@ -13,9 +13,9 @@ class EventViewSet(ModelViewSet):
     permission_classes = [permissions.IsAuthorOrReadOnly, permissions.IsOwnerOrReadOnly]
     filter_backends = [DjangoFilterBackend, SearchFilter]
     filter_fields = ['name']
-    search_fields = ['name', 'start_date', 'author__username']
-    ordering_fields = ['name', 'start_date', 'author__username']
+    search_fields = ['name', 'start_date', 'user__username']
+    ordering_fields = ['name', 'start_date', 'user__username']
 
     def perform_create(self, serializer):
-        serializer.validated_data['author'] = self.request.user
+        serializer.validated_data['user'] = self.request.user
         serializer.save()

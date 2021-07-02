@@ -4,7 +4,7 @@ from user.models import User
 
 
 class EventForm(forms.ModelForm):
-    author = forms.ModelChoiceField(queryset=User.objects.filter(type=1), label='Автор')
+    user = forms.ModelChoiceField(queryset=User.objects.filter(type=1), label='Автор')
 
     class Meta:
         model = models.Event
@@ -12,7 +12,7 @@ class EventForm(forms.ModelForm):
 
 
 class RequestForm(forms.ModelForm):
-    participant = forms.ModelChoiceField(queryset=User.objects.filter(type=0), label='Пользователь')
+    user = forms.ModelChoiceField(queryset=User.objects.filter(type=0), label='Пользователь')
 
     class Meta:
         model = models.Request
@@ -20,7 +20,7 @@ class RequestForm(forms.ModelForm):
 
 
 class FeedbackForm(forms.ModelForm):
-    participant = forms.ModelChoiceField(queryset=User.objects.filter(type=0), label='Пользователь')
+    user = forms.ModelChoiceField(queryset=User.objects.filter(type=0), label='Пользователь')
 
     class Meta:
         model = models.Feedback

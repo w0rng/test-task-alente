@@ -13,7 +13,7 @@ class Event(models.Model):
     description = models.TextField('Описание')
     create_date = models.DateTimeField('Дата создания', default=timezone.now, editable=False)
     start_date = models.DateTimeField('Дата проведения')
-    author = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='Организатор')
+    user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='Организатор')
 
     def __str__(self):
         return self.name
@@ -27,7 +27,7 @@ class Event(models.Model):
 class ForeignUserEvent(models.Model):
     date = models.DateTimeField('Дата создания', default=timezone.now, editable=False)
     event = models.ForeignKey(Event, on_delete=models.CASCADE, verbose_name='Мероприятие')
-    participant = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='Участник')
+    user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='Участник')
 
     TITLE_MESSAGE = 'Новое событие'
     TEXT_MESSAGE = 'С вашим мероприятием {0} что-то случилось'
@@ -39,7 +39,7 @@ class ForeignUserEvent(models.Model):
         super().save(*args, **kwargs)
 
         try:
-            self.event.author.email_user(self.TITLE_MESSAGE, self.TEXT_MESSAGE.format(self.event.name))
+            self.event.user.email_user(self.TITLE_MESSAGE, self.TEXT_MESSAGE.format(self.event.name))
         except AnymailRequestsAPIError:
             pass
 

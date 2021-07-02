@@ -1,9 +1,12 @@
+from datetime import timedelta
+
 from django.utils import timezone
 
 from anymail.exceptions import AnymailRequestsAPIError
 from django.conf import settings
 from django.core.validators import MaxValueValidator, MinValueValidator
 from django.db import models
+from .tasks import subscribe_to_reminder
 
 User = settings.AUTH_USER_MODEL
 
@@ -52,6 +55,13 @@ class Request(ForeignUserEvent):
         unique_together = ('event', 'user')
         verbose_name = 'Заявка'
         verbose_name_plural = 'Заявки'
+
+    def save(self, *args, **kwargs):
+        super().save(*args, **kwargs)
+        subscribe_to_reminder.apply_async(
+            (self.user.email, self.event.start_date, self.event.name),
+            eta=self.event.start_date - timedelta(days=1)
+         )
 
 
 class Feedback(ForeignUserEvent):

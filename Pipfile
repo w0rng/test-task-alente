@@ -13,6 +13,9 @@ django-filter = "*"
 celery = "*"
 redis = "*"
 django-debug-toolbar = "*"
+gunicorn = "*"
+django-heroku = "*"
+psycopg2 = "*"
 
 [requires]
 python_version = "3.9"
